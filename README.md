@@ -1,21 +1,23 @@
-This is a port of @soulwire 's Boid class from AS3.  
-It's not fleshed out yet (no wander / flock), but steering is functional.  
+This is a port of @soulwire 's Boid class from AS3.
+It's not fleshed out yet ( currenly only contains seek / flee / wander ), but steering is functional
 
-#Basic Usage:
-`
-//	In header 
-	Boid		*_boid;
-`
+#Basic Usage
+### .cpp
+#### Creation
+	float boidMaxSpeed = 100;
+	float boidMaxForce = 25;
 
-`
-// In class
-// Creation
-	_boidMaxSpeed = 100;
-	_boidMaxForce = 10;
-	// Create boid
-	_boid = new Boid( _boidMaxSpeed, _boidMaxForce );
+    // Create
+	_boid = new Boid( boidMaxSpeed, boidMaxForce );
 	_boid->setPosition( _target.x, _target.y, _target.z );
+    
+    // Set wander properties
+	_boid->setWanderRadius( 75.0f );
+	_boid->setWanderMaxTurningSpeed( M_PI / 32 ); // 
+	_boid->setWanderLookAheadDistance( 300 );
+
 	
-// Update loop
-	_boid->seekWithingRangeWithMultiplier( ci::Vec2f( getMousePos().x, getMousePos.y), 25.0f, 1.0f );
-`
+#### Update
+    _boid->wander( 0.3f );
+    _boid->seek( _mousePositionXYZ, 0.8f );
+    _boid->update();
